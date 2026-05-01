@@ -1,5 +1,5 @@
-export const OTA_VERSION = '1.0.50';
-export const APK_VERSION = '1.0.36';
+export const OTA_VERSION = '1.0.51';
+export const APK_VERSION = '1.0.37';
 
 // ── أدوار المستخدمين ──────────────────────────────────────────────────────────
 // جميع الأدوار ذات صلاحية الإشراف والإدارة
