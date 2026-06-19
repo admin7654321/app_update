@@ -1,4 +1,4 @@
-export const OTA_VERSION = '1.0.86';
+export const OTA_VERSION = '1.0.87';
 export const APK_VERSION = '1.0.38';
 
 // ── أدوار المستخدمين ──────────────────────────────────────────────────────────
