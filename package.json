@@ -1,7 +1,7 @@
 {
   "name": "raed-app",
   "private": true,
-  "version": "1.0.39",
+  "version": "1.0.92",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -44,6 +44,7 @@
     "@types/node": "^22.14.0",
     "@vitejs/plugin-react": "^5.0.0",
     "autoprefixer": "^10.4.27",
+    "firebase-admin": "^14.1.0",
     "javascript-obfuscator": "^5.3.0",
     "postcss": "^8.5.8",
     "tailwindcss": "^4.2.1",
