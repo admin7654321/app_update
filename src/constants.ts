@@ -1,5 +1,25 @@
-export const OTA_VERSION = '1.0.120';
-export const APK_VERSION = '1.0.44';
+import { App } from '@capacitor/app';
+import { Capacitor } from '@capacitor/core';
+
+export const OTA_VERSION = '1.0.121';
+export const APK_VERSION = '1.0.46';
+
+/**
+ * دالة جلب إصدار الـ APK الحقيقي من نظام الهواتف مباشرة
+ */
+export const getNativeApkVersion = async (): Promise<string> => {
+  if (Capacitor.isNativePlatform()) {
+    try {
+      const info = await App.getInfo();
+      if (info && info.version) {
+        return info.version;
+      }
+    } catch (e) {
+      console.warn("⚠️ Failed to get native app version:", e);
+    }
+  }
+  return APK_VERSION;
+};
 
 // ── أدوار المستخدمين ──────────────────────────────────────────────────────────
 // جميع الأدوار ذات صلاحية الإشراف والإدارة
