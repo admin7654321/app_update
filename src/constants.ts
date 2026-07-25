@@ -3,7 +3,7 @@ import { Capacitor } from '@capacitor/core';
 import { CapacitorUpdater } from '@capgo/capacitor-updater';
 import { Preferences } from '@capacitor/preferences';
 
-export const OTA_VERSION = '1.0.144';
+export const OTA_VERSION = '1.0.145';
 export const APK_VERSION = '1.0.51';
 
 /**
