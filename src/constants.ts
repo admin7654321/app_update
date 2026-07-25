@@ -1,7 +1,7 @@
 import { App } from '@capacitor/app';
 import { Capacitor } from '@capacitor/core';
 
-export const OTA_VERSION = '1.0.135';
+export const OTA_VERSION = '1.0.136';
 export const APK_VERSION = '1.0.48';
 
 /**
