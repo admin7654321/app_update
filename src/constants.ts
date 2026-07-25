@@ -3,8 +3,8 @@ import { Capacitor } from '@capacitor/core';
 import { CapacitorUpdater } from '@capgo/capacitor-updater';
 import { Preferences } from '@capacitor/preferences';
 
-export const OTA_VERSION = '1.0.140';
-export const APK_VERSION = '1.0.50';
+export const OTA_VERSION = '1.0.141';
+export const APK_VERSION = '1.0.51';
 
 /**
  * دالة جلب إصدار الـ OTA الحقيقي النشط حالياً في الجهاز (محفوظ في 4 طبقات حماية لمنع الضياع)
