@@ -2,7 +2,7 @@ import { App } from '@capacitor/app';
 import { Capacitor } from '@capacitor/core';
 
 export const OTA_VERSION = '1.0.126';
-export const APK_VERSION = '1.0.46';
+export const APK_VERSION = '1.0.47';
 
 /**
  * دالة جلب إصدار الـ APK الحقيقي من نظام الهواتف مباشرة
