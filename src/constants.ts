@@ -3,7 +3,7 @@ import { Capacitor } from '@capacitor/core';
 import { CapacitorUpdater } from '@capgo/capacitor-updater';
 import { Preferences } from '@capacitor/preferences';
 
-export const OTA_VERSION = '1.0.152';
+export const OTA_VERSION = '1.0.153';
 export const APK_VERSION = '1.0.51';
 
 /**
@@ -63,9 +63,10 @@ export const getNativeApkVersion = async (): Promise<string> => {
     }
   }
   const cachedNative = localStorage.getItem("native_apk_real_version");
-  if (cachedNative) return cachedNative;
+  if (cachedNative && cachedNative.trim() !== '') return cachedNative.trim();
 
-  return APK_VERSION;
+  // إذا كان من المتصفح (غير تطبيق هاتف أصلي)، يرجع WEB
+  return "WEB";
 };
 
 // ── أدوار المستخدمين ──────────────────────────────────────────────────────────
