@@ -4,7 +4,7 @@ import { CapacitorUpdater } from '@capgo/capacitor-updater';
 import { Preferences } from '@capacitor/preferences';
 
 export const OTA_VERSION = '1.0.159';
-export const APK_VERSION = '1.0.51';
+export const APK_VERSION = '1.0.52';
 
 /**
  * دالة جلب إصدار الـ OTA الحقيقي النشط حالياً في الجهاز (محفوظ في 4 طبقات حماية لمنع الضياع)
@@ -47,26 +47,36 @@ export const setRunningOtaVersion = async (version: string): Promise<void> => {
 };
 
 /**
- * دالة جلب إصدار الـ APK الحقيقي المعزول من نظام الهواتف مباشرة
+ * دالة جلب إصدار الـ APK الحقيقي المعزول من نظام الهواتف مباشرة.
+ * ⚠️ هذه الدالة لا تعتمد على أي قيمة محفوظة أو ثابت في الكود.
+ * المصدر الوحيد هو Android PackageManager عبر App.getInfo().
+ * هذا يمنع تماماً أي رفع وهمي للإصدار عند تحديثات OTA.
  */
 export const getNativeApkVersion = async (): Promise<string> => {
-  if (Capacitor.isNativePlatform()) {
+  if (!Capacitor.isNativePlatform()) {
+    return "WEB";
+  }
+
+  // محاولة 3 مرات لجلب الإصدار الحقيقي من نظام Android
+  for (let attempt = 1; attempt <= 3; attempt++) {
     try {
       const info = await App.getInfo();
       if (info && info.version && info.version.trim() !== '') {
         const realNativeVer = info.version.trim();
-        localStorage.setItem("native_apk_real_version", realNativeVer);
+        console.log(`[APK Version] ✅ Native version from PackageManager: ${realNativeVer} (attempt ${attempt})`);
         return realNativeVer;
       }
     } catch (e) {
-      console.warn("⚠️ Failed to get native app version:", e);
+      console.warn(`[APK Version] ⚠️ Attempt ${attempt}/3 failed to get native version:`, e);
+      if (attempt < 3) {
+        await new Promise(resolve => setTimeout(resolve, 500 * attempt));
+      }
     }
   }
-  const cachedNative = localStorage.getItem("native_apk_real_version");
-  if (cachedNative && cachedNative.trim() !== '') return cachedNative.trim();
 
-  // إذا كان من المتصفح (غير تطبيق هاتف أصلي)، يرجع WEB
-  return "WEB";
+  // جميع المحاولات فشلت — نُرجع UNKNOWN بدل أي قيمة محفوظة قد تكون وهمية
+  console.error("[APK Version] ❌ All 3 attempts failed. Reporting UNKNOWN.");
+  return "UNKNOWN";
 };
 
 // ── أدوار المستخدمين ──────────────────────────────────────────────────────────
