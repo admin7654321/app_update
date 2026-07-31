@@ -3,7 +3,7 @@ import { Capacitor } from '@capacitor/core';
 import { CapacitorUpdater } from '@capgo/capacitor-updater';
 import { Preferences } from '@capacitor/preferences';
 
-export const OTA_VERSION = '1.0.166';
+export const OTA_VERSION = '1.0.167';
 export const APK_VERSION = '1.0.52';
 
 /**
@@ -54,7 +54,7 @@ export const setRunningOtaVersion = async (version: string): Promise<void> => {
  */
 export const getNativeApkVersion = async (): Promise<string> => {
   if (!Capacitor.isNativePlatform()) {
-    return "WEB";
+    return "web";
   }
 
   // محاولة 3 مرات لجلب الإصدار الحقيقي من نظام Android
