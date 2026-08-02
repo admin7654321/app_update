@@ -3,7 +3,7 @@ import { Capacitor } from '@capacitor/core';
 import { CapacitorUpdater } from '@capgo/capacitor-updater';
 import { Preferences } from '@capacitor/preferences';
 
-export const OTA_VERSION = '1.0.176';
+export const OTA_VERSION = '1.0.178';
 export const APK_VERSION = '1.0.52';
 
 /**
@@ -96,3 +96,61 @@ export const isSupervisor = (jobTitle: string): boolean =>
 
 export const isAdmin = (jobTitle: string): boolean =>
   (ADMIN_ROLES as readonly string[]).includes(jobTitle);
+
+// ── الوظائف الفرعية والمهن الرئيسية ──────────────────────────────────────────────
+export const MAINTENANCE_SUB_JOBS = [
+  'ميكانيك',
+  'كهربائي',
+  'بنشر',
+  'سمكري',
+  'ملحم',
+  'حداد',
+  'صيانة دورية'
+] as const;
+
+export const DRIVER_SUB_JOBS = [
+  'سائق قلاب',
+  'سائق بوكلين',
+  'سائق شيول',
+  'سائق بلدوزر',
+  'سائق رصاصه',
+  'سائق قريدر',
+  'سائق لوبد',
+  'سائق وايت',
+  'سائق باص'
+] as const;
+
+export const SUB_JOB_OPTIONS: string[] = [
+  ...DRIVER_SUB_JOBS,
+  ...MAINTENANCE_SUB_JOBS,
+  'مراقب',
+  'سيفتي',
+  'حارس',
+  'مهندس كميات',
+  'مساح',
+  'مسؤول مخزن',
+  'مشتريات',
+  'كاتب',
+  'عامل'
+];
+
+/**
+ * دالة استنتاج المهنة الرئيسية (job_title) بناءً على الوظيفة الفرعية (sub_job)
+ */
+export const getPrimaryJobTitle = (subJob: string): string => {
+  if (!subJob) return '';
+  const clean = subJob.trim();
+  if ((DRIVER_SUB_JOBS as readonly string[]).includes(clean)) {
+    return 'سائق';
+  }
+  if ((MAINTENANCE_SUB_JOBS as readonly string[]).includes(clean)) {
+    return 'صيانة';
+  }
+  if (clean === 'مهندس كميات') {
+    return 'مراقب';
+  }
+  if (clean === 'مساح') {
+    return 'مساح';
+  }
+  return clean;
+};
