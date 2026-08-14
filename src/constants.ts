@@ -4,12 +4,28 @@ import { CapacitorUpdater } from '@capgo/capacitor-updater';
 import { Preferences } from '@capacitor/preferences';
 
 export const OTA_VERSION = '1.0.210';
-export const APK_VERSION = '1.0.60';
+export const APK_VERSION = '1.0.61';
+
+/**
+ * مقارنة رقمين بالصيغة X.Y.Z — يعيد true إذا كان A أحدث من B
+ */
+const isVerNewer = (a: string, b: string): boolean => {
+  const aParts = a.trim().split('.').map(Number);
+  const bParts = b.trim().split('.').map(Number);
+  for (let i = 0; i < Math.max(aParts.length, bParts.length); i++) {
+    const av = aParts[i] || 0;
+    const bv = bParts[i] || 0;
+    if (av > bv) return true;
+    if (av < bv) return false;
+  }
+  return false;
+};
 
 /**
  * دالة جلب إصدار الـ OTA الحقيقي النشط حالياً في الجهاز:
- * 1. إذا كان التطبيق يعمل بحزمة OTA تم تنزيلها لاحقاً، نأخذ رقم حزمة الـ OTA من CapacitorUpdater.current().
- * 2. إذا كان التطبيق يعمل بملفات الـ APK المدمجة (builtin)، فالإصدار الحقيقي هو OTA_VERSION المدمج في كود الـ APK.
+ * 1. إذا كانت هناك حزمة OTA نشطة تم تنزيلها وكانت أحدث من OTA_VERSION — نأخذها.
+ * 2. في جميع الحالات الأخرى (builtin أو حزمة قديمة أقل من OTA_VERSION) — نعيد OTA_VERSION.
+ * هذا يمنع التنزيل الوهمي عند تثبيت APK جديد يحتوي على كود أحدث من حزمة OTA المحفوظة.
  */
 export const getRunningOtaVersion = async (): Promise<string> => {
   if (Capacitor.isNativePlatform()) {
@@ -17,9 +33,15 @@ export const getRunningOtaVersion = async (): Promise<string> => {
       const currentBundle = await CapacitorUpdater.current();
       if (currentBundle && currentBundle.bundle) {
         const rawVer = (currentBundle.bundle.version || currentBundle.bundle.id || '').trim();
-        // إذا كان هناك حزمة OTA نشطة تم تنزيلها وتثبيتها مسبقاً
+        // حزمة OTA نشطة تم تنزيلها وتثبيتها مسبقاً
         if (rawVer && rawVer !== 'builtin' && rawVer !== 'public' && rawVer !== 'default') {
-          return rawVer;
+          // ✅ إذا كانت الحزمة النشطة أحدث من OTA_VERSION المدمج في الـ APK → نأخذها
+          // ❌ إذا كانت الحزمة النشطة أقدم من OTA_VERSION → نتجاهلها ونعيد OTA_VERSION
+          //    (هذا يحدث عند تثبيت APK جديد فوق القديم ولا تزال حزمة OTA القديمة محفوظة)
+          if (isVerNewer(rawVer, OTA_VERSION)) {
+            return rawVer;
+          }
+          return OTA_VERSION;
         }
       }
     } catch (e) {}
@@ -28,6 +50,7 @@ export const getRunningOtaVersion = async (): Promise<string> => {
   // الحزمة المدمجة داخل الـ APK
   return OTA_VERSION;
 };
+
 
 /**
  * دالة حفظ إصدار الـ OTA في التخزين الدائم للهاتف (SharedPreferences + localStorage)
