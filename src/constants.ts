@@ -4,10 +4,12 @@ import { CapacitorUpdater } from '@capgo/capacitor-updater';
 import { Preferences } from '@capacitor/preferences';
 
 export const OTA_VERSION = '1.0.210';
-export const APK_VERSION = '1.0.56';
+export const APK_VERSION = '1.0.57';
 
 /**
- * دالة جلب إصدار الـ OTA الحقيقي النشط حالياً في الجهاز (محفوظ في 4 طبقات حماية لمنع الضياع)
+ * دالة جلب إصدار الـ OTA الحقيقي النشط حالياً في الجهاز:
+ * 1. إذا كان التطبيق يعمل بحزمة OTA تم تنزيلها لاحقاً، نأخذ رقم حزمة الـ OTA من CapacitorUpdater.current().
+ * 2. إذا كان التطبيق يعمل بملفات الـ APK المدمجة (builtin)، فالإصدار الحقيقي هو OTA_VERSION المدمج في كود الـ APK.
  */
 export const getRunningOtaVersion = async (): Promise<string> => {
   if (Capacitor.isNativePlatform()) {
@@ -15,23 +17,15 @@ export const getRunningOtaVersion = async (): Promise<string> => {
       const currentBundle = await CapacitorUpdater.current();
       if (currentBundle && currentBundle.bundle) {
         const rawVer = (currentBundle.bundle.version || currentBundle.bundle.id || '').trim();
+        // إذا كان هناك حزمة OTA نشطة تم تنزيلها وتثبيتها مسبقاً
         if (rawVer && rawVer !== 'builtin' && rawVer !== 'public' && rawVer !== 'default') {
-          localStorage.setItem("last_installed_ota_version", rawVer);
-          try { await Preferences.set({ key: "active_ota_version", value: rawVer }); } catch(e) {}
           return rawVer;
         }
       }
     } catch (e) {}
   }
 
-  try {
-    const { value: prefVersion } = await Preferences.get({ key: "active_ota_version" });
-    if (prefVersion && prefVersion.trim() !== '') return prefVersion.trim();
-  } catch (e) {}
-
-  const cachedLocal = localStorage.getItem("last_installed_ota_version");
-  if (cachedLocal && cachedLocal.trim() !== '') return cachedLocal.trim();
-
+  // الحزمة المدمجة داخل الـ APK
   return OTA_VERSION;
 };
 
