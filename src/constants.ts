@@ -4,7 +4,7 @@ import { CapacitorUpdater } from '@capgo/capacitor-updater';
 import { Preferences } from '@capacitor/preferences';
 
 export const OTA_VERSION = '1.0.210';
-export const APK_VERSION = '1.0.58';
+export const APK_VERSION = '1.0.59';
 
 /**
  * دالة جلب إصدار الـ OTA الحقيقي النشط حالياً في الجهاز:
