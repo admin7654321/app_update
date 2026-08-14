@@ -1,7 +1,7 @@
 {
   "name": "raed-app",
   "private": true,
-  "version": "1.0.210",
+  "version": "1.0.55",
   "type": "module",
   "scripts": {
     "dev": "vite",
