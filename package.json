@@ -1,7 +1,7 @@
 {
   "name": "raed-app",
   "private": true,
-  "version": "1.0.217",
+  "version": "1.0.218",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -12,6 +12,7 @@
     "test:run": "vitest run"
   },
   "dependencies": {
+    "@capacitor-community/bluetooth-le": "^8.3.0",
     "@capacitor-community/file-opener": "^8.0.0",
     "@capacitor/android": "^8.0.1",
     "@capacitor/app": "^8.0.0",
