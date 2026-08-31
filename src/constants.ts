@@ -3,7 +3,7 @@ import { Capacitor } from '@capacitor/core';
 import { CapacitorUpdater } from '@capgo/capacitor-updater';
 import { Preferences } from '@capacitor/preferences';
 
-export const OTA_VERSION = '1.0.218';
+export const OTA_VERSION = '1.0.219';
 export const APK_VERSION = '1.0.66';
 export const CLOUDFLARE_AUTH_URL = 'https://curly-bar-47e4.admin-a.workers.dev';
 
