@@ -1,7 +1,7 @@
 {
   "name": "raed-app",
   "private": true,
-  "version": "1.0.229",
+  "version": "1.0.230",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -33,6 +33,7 @@
     "@capgo/capacitor-updater": "^8.43.8",
     "@types/leaflet": "^1.9.21",
     "firebase": "^12.6.0",
+    "html-to-image": "^1.11.13",
     "html2canvas": "^1.4.1",
     "leaflet": "^1.9.4",
     "lucide-react": "^0.556.0",
