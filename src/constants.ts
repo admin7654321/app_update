@@ -3,9 +3,9 @@ import { Capacitor } from '@capacitor/core';
 import { CapacitorUpdater } from '@capgo/capacitor-updater';
 import { Preferences } from '@capacitor/preferences';
 
-export const OTA_VERSION = '1.0.230';
-export const APK_VERSION = '1.0.69';
-export const CLOUDFLARE_AUTH_URL = 'https://curly-bar-47e4.admin-a.workers.dev';
+export const OTA_VERSION = '1.0.232';
+export const APK_VERSION = '1.0.70';
+export const CLOUDFLARE_AUTH_URL = 'https://entersave-auth.admin-a.workers.dev';
 
 /**
  * مقارنة رقمين بالصيغة X.Y.Z — يعيد true إذا كان A أحدث من B
