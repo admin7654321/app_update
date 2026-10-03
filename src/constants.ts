@@ -3,9 +3,13 @@ import { Capacitor } from '@capacitor/core';
 import { CapacitorUpdater } from '@capgo/capacitor-updater';
 import { Preferences } from '@capacitor/preferences';
 
-export const OTA_VERSION = '1.0.251';
+export const OTA_VERSION = '1.0.252';
 export const APK_VERSION = '1.0.73';
 export const CLOUDFLARE_AUTH_URL = 'https://entersave-auth.admin-a.workers.dev';
+
+// 🔴 [TEST_MODE_WORKER_ONLY] تعطيل الـ Fallback المباشر لفايربيس مؤقتاً للتأكد 100% أن البيانات تأتي فعلاً من الووركر
+// لكشفه لاحقاً أو إعادة الـ Fallback القديم: غيّر القيمة أدناه إلى true
+export const ENABLE_FIREBASE_FALLBACK = false;
 
 /**
  * مقارنة رقمين بالصيغة X.Y.Z — يعيد true إذا كان A أحدث من B
