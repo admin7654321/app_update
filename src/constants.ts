@@ -4,7 +4,7 @@ import { CapacitorUpdater } from '@capgo/capacitor-updater';
 import { Preferences } from '@capacitor/preferences';
 
 export const OTA_VERSION = '1.0.258';
-export const APK_VERSION = '1.0.86';
+export const APK_VERSION = '1.0.87';
 export const CLOUDFLARE_AUTH_URL = 'https://entersave-auth.admin-a.workers.dev';
 
 // 🔴 [TEST_MODE_WORKER_ONLY] تعطيل الـ Fallback لفايربيس بطلب المستخدم لتجربة الاعتماد الكامل على الووركر
