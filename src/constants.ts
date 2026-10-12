@@ -3,7 +3,7 @@ import { Capacitor } from '@capacitor/core';
 import { CapacitorUpdater } from '@capgo/capacitor-updater';
 import { Preferences } from '@capacitor/preferences';
 
-export const OTA_VERSION = '1.0.266';
+export const OTA_VERSION = '1.0.267';
 export const APK_VERSION = '1.0.89';
 export const CLOUDFLARE_AUTH_URL = 'https://entersave-auth.admin-a.workers.dev';
 export const CLOUDFLARE_ATTENDANCE_URL = 'https://entersave-attendance.admin-a.workers.dev';
