@@ -4,7 +4,7 @@ import { CapacitorUpdater } from '@capgo/capacitor-updater';
 import { Preferences } from '@capacitor/preferences';
 
 export const OTA_VERSION = '1.0.267';
-export const APK_VERSION = '1.0.89';
+export const APK_VERSION = '1.0.90';
 export const CLOUDFLARE_AUTH_URL = 'https://entersave-auth.admin-a.workers.dev';
 export const CLOUDFLARE_ATTENDANCE_URL = 'https://entersave-attendance.admin-a.workers.dev';
 
@@ -162,6 +162,9 @@ export const SUB_JOB_OPTIONS: string[] = [
 export const getPrimaryJobTitle = (subJob: string): string => {
   if (!subJob) return '';
   const clean = subJob.trim();
+  if (clean === 'غير محدد' || clean === 'غير محدد حالياً' || clean === 'غير محدد حاليا') {
+    return 'غير محدد';
+  }
   if ((DRIVER_SUB_JOBS as readonly string[]).includes(clean)) {
     return 'سائق';
   }
