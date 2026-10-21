@@ -4,12 +4,15 @@ import { CapacitorUpdater } from '@capgo/capacitor-updater';
 import { Preferences } from '@capacitor/preferences';
 
 export const OTA_VERSION = '1.0.268';
-export const APK_VERSION = '1.0.91';
+export const APK_VERSION = '1.0.92';
 export const CLOUDFLARE_AUTH_URL = 'https://entersave-auth.admin-a.workers.dev';
 export const CLOUDFLARE_ATTENDANCE_URL = 'https://entersave-attendance.admin-a.workers.dev';
 
 // 🔴 [TEST_MODE_WORKER_ONLY] تعطيل الـ Fallback لفايربيس بطلب المستخدم لتجربة الاعتماد الكامل على الووركر
 export const ENABLE_FIREBASE_FALLBACK = false;
+
+// 🛡️ خط أمان منفصل للتحديثات الهوائية (OTA) لضمان سحب التحديثات من فايربيس في حال تعطل كلود فلير
+export const ENABLE_UPDATE_FIREBASE_FALLBACK = true;
 
 /**
  * مقارنة رقمين بالصيغة X.Y.Z — يعيد true إذا كان A أحدث من B
